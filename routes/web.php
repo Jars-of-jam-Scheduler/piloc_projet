@@ -1,6 +1,9 @@
 <?php
+use App\Http\Controllers\AuthController;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', [AuthController::class, 'show'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', function() {
+	auth()->logout();
+	return redirect('/');
+})->name('logout');
